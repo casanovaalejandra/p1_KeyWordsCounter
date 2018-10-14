@@ -14,14 +14,14 @@ public class KeyWordsReducer extends Reducer<Text,IntWritable,Text,IntWritable>{
             throws IOException, InterruptedException {
         //super.reduce(key, values, context);
 
-        // key is the word matched from the cases
+        // key is the text of the tweet
         // values is a list of 1s, one for each time the word was found
 
         // setup a counter
         int count = 0;
         // iterator over list of 1s, to count them (no size() or length() method available)
         for (IntWritable value : values ){
-            count++;
+            count=+value.get();
         }
         // emit key-pair: key, count
         // key is the word

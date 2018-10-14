@@ -25,7 +25,6 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
 
         String tweet = value.toString();
         String text = null;
-        int lengthOfText = 0;
         String[] arraysOfWordText = null;
 
         //usando twitter4j se convierte el string jason ( el twitter object) a un Status object
@@ -63,7 +62,7 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
             for (int i =0; i<= words.length-1; i++){
              words[i] = words[i].replaceAll("[^\\w]","");
              if (!isStopWord(words[i],stopWOrds)){
-                 context.write(new Text(words[i]),new IntWritable(1));
+                 context.write( new Text(text),new IntWritable(1));
              }
             }
         } catch (TwitterException e) {
