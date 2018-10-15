@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public class KeyWordsReducer extends Reducer<Text,IntWritable,Text,IntWritable>{
 
-    protected void reduce(Text key, Iterable<IntWritable> values, Reducer.Context context)
+    @Override
+    protected void reduce(Text key, Iterable<IntWritable> values, Context context)
             throws IOException, InterruptedException {
         //super.reduce(key, values, context);
 
@@ -21,7 +22,8 @@ public class KeyWordsReducer extends Reducer<Text,IntWritable,Text,IntWritable>{
         int count = 0;
         // iterator over list of 1s, to count them (no size() or length() method available)
         for (IntWritable value : values ){
-            count=+value.get();
+            //System.out.println(key+" " + value);
+            count ++;
         }
         // emit key-pair: key, count
         // key is the word

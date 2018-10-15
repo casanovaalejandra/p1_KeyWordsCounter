@@ -31,6 +31,8 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
         //y con este puedes seleccionar el texto como un field a leer
         //fuente: https://flanaras.wordpress.com/2016/01/11/twitter4j-status-object-string-json/
         Status status = null;
+        String id =null;
+        Text id2 = null;
         Set<String> stopWOrds =new HashSet<String>(Arrays.asList(new String[] {"a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone",
                 "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any",
                 "anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes",
@@ -55,14 +57,17 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
                 "with", "within", "without", "would", "yet", "you", "your", "yours", "yourself", "yourselves", "the"}));
 
         try {
-            status = TwitterObjectFactory.createStatus(tweet);
-            text = status.getText();
-            String[] words = text.split("\\s");
+            status = TwitterObjectFactory.createStatus(tweet);                                                              //objeto de twitter
+            text = status.getText();                                                                                        //text en el objeto de twitter
+            String[] words = text.split("\\s");                                                                          //particion del texto del objeto de twitter
+            id = String.valueOf(status.getId());                                                                            //id de ese tweet
+            id2 = new Text(id);
 
-            for (int i =0; i<= words.length-1; i++){
-             words[i] = words[i].replaceAll("[^\\w]","");
-             if (!isStopWord(words[i],stopWOrds)){
-                 context.write( new Text(text),new IntWritable(1));
+            for (String word: words ){                                                                                    //iterar por ese array de palabras
+                word = word.replaceAll("[^\\w]","");//elimina caracteres raros
+                if (!isStopWord(word,stopWOrds)) {//si NO es un stopword
+                //System.out.println(id2+" "+word);
+                 context.write(id2,new IntWritable(1));                                                     //escribe el 1
              }
             }
         } catch (TwitterException e) {

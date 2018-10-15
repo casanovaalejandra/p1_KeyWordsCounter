@@ -21,7 +21,6 @@ public class KeyWordsDriver {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         job.setMapperClass(edu.uprm.cse.bigdata.KeyWordsMapper.class);
-        job.setCombinerClass(edu.uprm.cse.bigdata.KeyWordsReducer.class);
         job.setReducerClass(edu.uprm.cse.bigdata.KeyWordsReducer.class);
 
         job.setOutputKeyClass(Text.class);
