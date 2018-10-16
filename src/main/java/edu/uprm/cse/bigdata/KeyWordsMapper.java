@@ -19,6 +19,7 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
         if(list.contains(wordToCheck)){return true;}
         return false;
     }
+    @Override
     public void map(LongWritable key, Text value, Context context) throws IOException,InterruptedException{
         //ESta clase lo que deber hacer es leer cada tweet y contar dentro del texto cada palabra que si es keyword,
         //es decir que no es un articulo, punto, coma, etc.
@@ -33,7 +34,8 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
         Status status = null;
         String id =null;
         Text id2 = null;
-        Set<String> stopWOrds =new HashSet<String>(Arrays.asList(new String[] {"a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone",
+        Set<String> stopWOrds =new HashSet<String>(Arrays.asList(new String[] {"a", "about", "above", "above", "across", "after", "afterwards", "again",
+                "against", "all", "almost", "alone",
                 "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any",
                 "anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes",
                 "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both",
