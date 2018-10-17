@@ -34,8 +34,7 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
         Status status = null;
         String id =null;
         Text id2 = null;
-        Set<String> stopWOrds =new HashSet<String>(Arrays.asList(new String[] {"a", "about", "above", "above", "across", "after", "afterwards", "again",
-                "against", "all", "almost", "alone",
+        Set<String> stopWOrds =new HashSet<String>(Arrays.asList(new String[] {"a", "about", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", "alone",
                 "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any",
                 "anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "because","become","becomes",
                 "becoming", "been", "before", "beforehand", "behind", "being", "below", "beside", "besides", "between", "beyond", "bill", "both",
@@ -68,8 +67,7 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
             for (String word: words ){                                                                                    //iterar por ese array de palabras
                 word = word.replaceAll("[^\\w]","");//elimina caracteres raros
                 if (!isStopWord(word,stopWOrds)) {//si NO es un stopword
-                //System.out.println(id2+" "+word);
-                 context.write(id2,new IntWritable(1));                                                     //escribe el 1
+                 context.write(new Text(word),new IntWritable(1));                                                     //escribe el 1
              }
             }
         } catch (TwitterException e) {
