@@ -12,11 +12,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable> {
-    boolean ans = false;
-//Method to check if a word is part of the set of stop words, returns true if its a stop word
+
+//Method to check if a word is part of the set of stop words, returns true if its a stop word, it also checks
     public boolean isStopWord(String wordToCheck, Set<String> list){
         wordToCheck=wordToCheck.toLowerCase();
-        if(list.contains(wordToCheck)){return true;}
+        if(list.contains(wordToCheck) ){return true;}
         return false;
     }
     @Override
@@ -66,7 +66,9 @@ public class KeyWordsMapper extends Mapper<LongWritable, Text,Text, IntWritable>
 
             for (String word: words ){                                                                                    //iterar por ese array de palabras
                 word = word.replaceAll("[^\\w]","");//elimina caracteres raros
-                if (!isStopWord(word,stopWOrds)) {//si NO es un stopword
+
+                if (!isStopWord(word,stopWOrds)&& !word.contains("\n") && !word.contains("\t") ) {//si NO es un stopword
+
                  context.write(new Text(word),new IntWritable(1));                                                     //escribe el 1
              }
             }
